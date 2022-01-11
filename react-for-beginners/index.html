@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <!-- interacitve하게 -->
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <!-- body안에 갇히게 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- babel 설치 : JSX로 작성한걸 이해할 수 있게 하기 위해서! -->
+  
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+        Hello I'm a title
+      </h3>
+    );
+
+    // = () => (
+    // { return () }
+    
+    // arrow function과 같음 [위]
+    // function Title() {
+    //   return (
+    //     <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+    //       Hello I'm a title
+    //     </h3>
+    //   );
+    // }
+
+    /* 
+    const h3 = React.createElement(
+      "h3",
+      {
+        id: "title",
+        onMouseEnter: () => console.log("mouse enter"),
+      }, 
+      "Hello I'm a span"
+    ); 
+    */
+
+    const Button = () => (
+      <button style={{
+          backgroundColor: "tomato",
+        }} onClick={() => console.log("im clicked")}
+      >
+        Click me  
+      </button>
+    );
+
+   /*  
+   const btn = React.createElement(
+      "button",
+      {
+        onClick: () => console.log("im clicked"),
+        style: {
+          backgroundColor: "tomato",
+        }
+      }, 
+      "Click me"
+    ); 
+    */
+
+    // 반드시 대문자로 시작해야 인식한다!
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+    
+    ReactDOM.render(<Container />, root);
+  </script>
+</html>
