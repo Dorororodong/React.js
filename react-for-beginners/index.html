@@ -11,12 +11,61 @@
   <!-- babel 설치 : JSX로 작성한걸 이해할 수 있게 하기 위해서! -->
   
   <script type="text/babel">
+    function MinutesToHours() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setIverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      }
+      const reset = () => {
+        setAmount(0);
+      }
+      const onInvert = () => {
+        reset();
+        setIverted((current) => !current);
+      }
+      return (
+        <div>
+          <div>
+            <label htmlFor="">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+              disabled={inverted === true}
+              // disabled={inverted}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              onChange={onChange}
+              disabled={inverted === false}
+              // disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>{inverted ? "Turn back!" : "Invert"}</button>
+        </div>
+      );
+    }
+    function App() {
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <MinutesToHours />
+        </div>
+      );
+    }
     const root = document.getElementById("root");
-    const Title = () => (
-      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-        Hello I'm a title
-      </h3>
-    );
+    ReactDOM.render(<App />, root);
 
     // = () => (
     // { return () }
@@ -41,15 +90,6 @@
     ); 
     */
 
-    const Button = () => (
-      <button style={{
-          backgroundColor: "tomato",
-        }} onClick={() => console.log("im clicked")}
-      >
-        Click me  
-      </button>
-    );
-
    /*  
    const btn = React.createElement(
       "button",
@@ -63,14 +103,23 @@
     ); 
     */
 
-    // 반드시 대문자로 시작해야 인식한다!
-    const Container = () => (
-      <div>
-        <Title />
-        <Button />
-      </div>
-    );
-    
-    ReactDOM.render(<Container />, root);
+
+    /* // 반드시 대문자로 시작해야 인식한다!
+    function App() {
+      const [counter, setCounter] = React.useState(0);
+      // [data, function] = usestate(initial data);
+      // const counter = data[0];
+      // const modifier = data[1];
+      const onClick = () => {
+        // setCounter(counter + 1);
+        setCounter((current) => current + 1);
+      };
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button onClick={onClick}>Click me</button>
+        </div>
+      );
+    } */
   </script>
 </html>
