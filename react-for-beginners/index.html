@@ -9,58 +9,34 @@
   <!-- body안에 갇히게 -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <!-- babel 설치 : JSX로 작성한걸 이해할 수 있게 하기 위해서! -->
+  <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+  <!-- props가 어떤 type을 받고 있는지?! -->
   
   <script type="text/babel">
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState(0);
-      const [inverted, setIverted] = React.useState(false);
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      }
-      const reset = () => {
-        setAmount(0);
-      }
-      const onInvert = () => {
-        reset();
-        setIverted((current) => !current);
-      }
+    function Btn({ text, fontsize = 50 }) {
       return (
-        <div>
-          <div>
-            <label htmlFor="">Minutes</label>
-            <input
-              value={inverted ? amount * 60 : amount}
-              id="minutes"
-              placeholder="Minutes"
-              type="number"
-              onChange={onChange}
-              disabled={inverted === true}
-              // disabled={inverted}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="">Hours</label>
-            <input
-              value={inverted ? amount : Math.round(amount / 60)}
-              id="hours"
-              placeholder="Hours"
-              type="number"
-              onChange={onChange}
-              disabled={inverted === false}
-              // disabled={!inverted}
-            />
-          </div>
-          <button onClick={reset}>Reset</button>
-          <button onClick={onInvert}>{inverted ? "Turn back!" : "Invert"}</button>
-        </div>
-      );
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontsize,
+          }}>
+          {text}
+        </button>
+      )
     }
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
     function App() {
       return (
         <div>
-          <h1>Super Converter</h1>
-          <MinutesToHours />
+          <Btn text="Save Changes" fontsize={18} />
+          <Btn text={"Continue"} />
         </div>
       );
     }
